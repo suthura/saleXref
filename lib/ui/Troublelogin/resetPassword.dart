@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:salex/Controllers/ApiServices/VerifyEmailService.dart';
-import 'package:salex/ui/MainScreens/homepage.dart';
+import 'package:salex/ui/MainScreens/Dashboard/dashboarspage.dart';
 import 'package:salex/Animations/FadeAnimation.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:salex/style/theme.dart' as Theme;

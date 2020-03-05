@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
-getOptions() {
+getOptions(context) {
   return <Widget>[
     IconButton(
         icon: Icon(Icons.home),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pop();
+          Navigator.of(context).pushNamed('/Home');
+        },
         tooltip: "Home",
         iconSize: 40.0,
         color: Colors.black),
@@ -31,12 +34,6 @@ getOptions() {
         onPressed: () {},
         tooltip: "Returns",
         iconSize: 40.0,
-        color: Colors.black),
-    IconButton(
-        icon: Icon(Icons.shopping_basket),
-        onPressed: () {},
-        tooltip: "Cart",
-        iconSize: 40.0,
-        color: Colors.black),
+        color: Colors.black)
   ];
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:salex/ui/Login/login_page.dart';
-import 'package:salex/ui/MainScreens/homepage.dart';
+import 'package:salex/ui/MainScreens/Dashboard/dashboarspage.dart';
 import 'package:salex/ui/Troublelogin/forgotPassword.dart';
 
 
@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
         // login and resgistration routes
         "/forgotpw": (BuildContext context) => new ForgotPassword(),
         "/appRoute": (BuildContext context) => new LoginPage(),
+        "/Home": (BuildContext context) => new HomePage(),
       },
     );
   }

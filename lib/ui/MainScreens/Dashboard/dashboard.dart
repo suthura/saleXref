@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:salex/ui/MainScreens/logOut.dart';
+import 'package:salex/ui/MainScreens/Common/logOut.dart';
 
 Widget dashboard(context) {
   return Container(

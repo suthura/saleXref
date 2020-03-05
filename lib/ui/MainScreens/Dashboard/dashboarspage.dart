@@ -1,8 +1,8 @@
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:salex/ui/MainScreens/dashboard.dart';
-import 'package:salex/ui/MainScreens/fabOptions.dart';
+import 'package:salex/ui/MainScreens/Dashboard/dashboard.dart';
+import 'package:salex/ui/MainScreens/Common/fabOptions.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
             size: 40,
           ),
           child: dashboard(context),
-          options: getOptions()
+          options: getOptions(context)
         ));
   }
 }
