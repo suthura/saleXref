@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "941144373535",
+    "firebase_url": "https://salex-9b4cd.firebaseio.com",
+    "project_id": "salex-9b4cd",
+    "storage_bucket": "salex-9b4cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:941144373535:android:733bcb8edab43d04d8582a",
+        "android_client_info": {
+          "package_name": "com.hardcodelk.salex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "941144373535-q99v7dt99t82fvp2v7kdos6vgm8srtoq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hardcodelk.salex",
+            "certificate_hash": "cf46e1b25d3b1674b1d74fda6621dbcbc8d94369"
+          }
+        },
+        {
+          "client_id": "941144373535-0rmsn86mobump2ju8sju8ad2nak47g26.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPYBdRsmlVmaNQZ8q3Gczt1xEfWGI--xc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "941144373535-0rmsn86mobump2ju8sju8ad2nak47g26.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
