@@ -31,13 +31,19 @@ getOptions(context) {
         color: Colors.black),
     IconButton(
         icon: Icon(Icons.monetization_on),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pop();
+          Navigator.of(context).pushNamed('/Sales');
+        },
         tooltip: "Sales",
         iconSize: 40.0,
         color: Colors.black),
     IconButton(
         icon: Icon(Icons.assignment_returned),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pop();
+          Navigator.of(context).pushNamed('/Returns');
+        },
         tooltip: "Returns",
         iconSize: 40.0,
         color: Colors.black)
