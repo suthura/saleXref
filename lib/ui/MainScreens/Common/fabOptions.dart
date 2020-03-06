@@ -22,7 +22,10 @@ getOptions(context) {
         color: Colors.black),
     IconButton(
         icon: Icon(Icons.store),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pop();
+          Navigator.of(context).pushNamed('/Shops');
+        },
         tooltip: "Shops",
         iconSize: 40.0,
         color: Colors.black),

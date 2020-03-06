@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:salex/ui/Login/login_page.dart';
 import 'package:salex/ui/MainScreens/Dashboard/dashboarspage.dart';
 import 'package:salex/ui/MainScreens/Phones/phoneListPage.dart';
+import 'package:salex/ui/MainScreens/Shops/shopListPage.dart';
 import 'package:salex/ui/Troublelogin/forgotPassword.dart';
 
 
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         "/appRoute": (BuildContext context) => new LoginPage(),
         "/Home": (BuildContext context) => new HomePage(),
         "/Phones": (BuildContext context) => new PhoneListPage(),
+        "/Shops": (BuildContext context) => new ShopListPage(),
       },
     );
   }
