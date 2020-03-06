@@ -13,7 +13,10 @@ getOptions(context) {
         color: Colors.black),
     IconButton(
         icon: Icon(Icons.phone_android),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pop();
+          Navigator.of(context).pushNamed('/Phones');
+        },
         tooltip: "Phones",
         iconSize: 40.0,
         color: Colors.black),
