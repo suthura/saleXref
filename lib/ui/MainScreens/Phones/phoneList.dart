@@ -7,12 +7,7 @@ Widget phoneList(context, filteredphoneItem) {
   return Container(
     decoration: new BoxDecoration(
       gradient: new LinearGradient(
-          colors: [
-            // Theme.Colors.loginGradientStart,
-            // Theme.Colors.loginGradientEnd
-            Colors.white,
-            Colors.white70
-          ],
+          colors: [Colors.white, Colors.white70],
           begin: const FractionalOffset(0.0, 0.0),
           end: const FractionalOffset(1.0, 1.0),
           stops: [0.0, 1.0],
@@ -20,7 +15,6 @@ Widget phoneList(context, filteredphoneItem) {
     ),
     padding: const EdgeInsets.only(left: 16, right: 16, top: 48),
     child: Column(
-      // crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -37,10 +31,47 @@ Widget phoneList(context, filteredphoneItem) {
           ],
         ),
         SizedBox(
-          height: 50,
+          height: 20,
         ),
-        // Container(
-        //   child:
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                new IconButton(
+                  icon: new Icon(
+                    Icons.shopping_cart,
+                    color: Colors.black45,
+                  ),
+                  onPressed: null,
+                ),
+                new Positioned(
+                    child: new Stack(
+                  children: <Widget>[
+                    new Icon(Icons.brightness_1,
+                        size: 20.0, color: Colors.red[700]),
+                    new Positioned(
+                        top: 3.0,
+                        right: 7,
+                        child: new Center(
+                          child: new Text(
+                            "5",
+                            style: new TextStyle(
+                                color: Colors.white,
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        )),
+                  ],
+                )),
+              ],
+            ),
+          ],
+        ),
+        // SizedBox(
+        //   height: 10,
+        // ),
         Expanded(
           child: PageView(
             controller: PageController(viewportFraction: 1),
@@ -67,14 +98,9 @@ Widget phoneList(context, filteredphoneItem) {
             ],
           ),
         ),
-        // ),
       ],
     ),
   );
-  // ),
-  //   ),
-  // ),
-  // );
 }
 
 Widget _buildFrontWidget(index, filteredphoneItem) {
@@ -128,7 +154,6 @@ Widget _buildFrontWidget(index, filteredphoneItem) {
 Widget _buildInnerTopWidget(index, filteredphoneItem) {
   return Container(
     color: Color(0xFFe57373),
-    // alignment: Alignment.center,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
@@ -197,18 +222,37 @@ Widget _buildInnerBottomWidget(index, filteredphoneItem) {
           alignment: Alignment.bottomCenter,
           child: Padding(
             padding: EdgeInsets.only(bottom: 20),
-            child: FlatButton(
-              onPressed: () {
-                SimpleFoldingCellState foldingCellState = context
-                    .ancestorStateOfType(TypeMatcher<SimpleFoldingCellState>());
-                foldingCellState?.toggleFold();
-              },
-              child: Text(
-                "Close",
-              ),
-              textColor: Colors.white,
-              color: Colors.indigoAccent,
-              splashColor: Colors.white.withOpacity(0.5),
+            child: Row(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    FlatButton(
+                      onPressed: () {
+                        SimpleFoldingCellState foldingCellState =
+                            context.ancestorStateOfType(
+                                TypeMatcher<SimpleFoldingCellState>());
+                        foldingCellState?.toggleFold();
+                      },
+                      child: Text(
+                        "Close",
+                      ),
+                      textColor: Colors.white,
+                      color: Colors.indigoAccent,
+                      splashColor: Colors.white.withOpacity(0.5),
+                    ),
+                    FlatButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Add",
+                      ),
+                      textColor: Colors.white,
+                      color: Colors.indigoAccent,
+                      splashColor: Colors.white.withOpacity(0.5),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),

@@ -11,15 +11,15 @@ getOptions(context) {
         tooltip: "Home",
         iconSize: 40.0,
         color: Colors.black),
-    IconButton(
-        icon: Icon(Icons.phone_android),
-        onPressed: () {
-          Navigator.of(context).pop();
-          Navigator.of(context).pushNamed('/Phones');
-        },
-        tooltip: "Phones",
-        iconSize: 40.0,
-        color: Colors.black),
+    // IconButton(
+    //     icon: Icon(Icons.phone_android),
+    //     onPressed: () {
+    //       Navigator.of(context).pop();
+    //       Navigator.of(context).pushNamed('/Phones');
+    //     },
+    //     tooltip: "Phones",
+    //     iconSize: 40.0,
+    //     color: Colors.black),
     IconButton(
         icon: Icon(Icons.store),
         onPressed: () {

@@ -28,9 +28,9 @@ class _PhoneListPageState extends State<PhoneListPage> {
   }
 
   callAPI() {
-    GetMyPhoneService.getPhones().then((interestFromServer) {
+    GetMyPhoneService.getPhones().then((phoneFromServer) {
       setState(() {
-        phoneItem = interestFromServer;
+        phoneItem = phoneFromServer;
         filteredphoneItem = phoneItem;
         print("updated");
       });
