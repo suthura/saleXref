@@ -5,6 +5,7 @@ class PhoneItem {
   String imei;
   String capacity;
   String price;
+  bool inCart;
 
   PhoneItem(
       {this.image,
@@ -12,7 +13,8 @@ class PhoneItem {
       this.pmodel,
       this.imei,
       this.capacity,
-      this.price});
+      this.price,
+      this.inCart});
 
   factory PhoneItem.fromJson(Map<String, dynamic> json) {
     return PhoneItem(
@@ -22,6 +24,7 @@ class PhoneItem {
       imei: json["IMEI"] as String,
       capacity: json["capacity"] as String,
       price: json["Price"] as String,
+      inCart: json["inCart"] as bool,
     );
   }
 }

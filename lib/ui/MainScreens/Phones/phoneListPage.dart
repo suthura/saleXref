@@ -5,6 +5,7 @@ import 'package:salex/ui/MainScreens/Phones/phoneList.dart';
 import 'package:salex/ui/MainScreens/Common/fabOptions.dart';
 import 'package:salex/Controllers/ApiServices/GetMyPhoneService.dart';
 import 'package:salex/Models/phoneModel.dart';
+import 'dart:async';
 
 class PhoneListPage extends StatefulWidget {
   PhoneListPage({Key key}) : super(key: key);
@@ -21,10 +22,19 @@ double screenWidth, screenHeight;
 final Duration duration = const Duration(milliseconds: 200);
 
 class _PhoneListPageState extends State<PhoneListPage> {
+  Timer _timer;
   @override
   void initState() {
+    _timer =
+        new Timer.periodic(Duration(seconds: 1), (Timer timer) => callAPI());
+    // callAPI();
     super.initState();
-    callAPI();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   callAPI() {
@@ -32,7 +42,7 @@ class _PhoneListPageState extends State<PhoneListPage> {
       setState(() {
         phoneItem = phoneFromServer;
         filteredphoneItem = phoneItem;
-        print("updated");
+        print("phone list updated");
       });
     });
   }
