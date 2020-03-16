@@ -4,6 +4,7 @@ import 'package:folding_cell/folding_cell.dart';
 import 'package:salex/ui/MainScreens/Phones/phoneListPage.dart';
 import 'package:salex/Controllers/ApiServices/addToCartService.dart';
 import 'package:salex/ui/MainScreens/Common/logOut.dart';
+import 'package:slider_button/slider_button.dart';
 
 class phoneList extends StatefulWidget {
   final context;
@@ -20,8 +21,9 @@ class _phoneListState extends State<phoneList> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: InkWell(
-        onTap: (){
+        onTap: () {
           print("checkout");
+          Navigator.of(context).pushNamed("/Checkout");
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -61,54 +63,6 @@ class _phoneListState extends State<phoneList> {
                 logOut(),
               ],
             ),
-            // SizedBox(
-            //   height: 20,
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.end,
-            //   mainAxisSize: MainAxisSize.max,
-            //   children: <Widget>[
-            //     Stack(
-            //       children: <Widget>[
-            //         new Container(
-            //           height: 70,
-            //           width: 70,
-            //           decoration: BoxDecoration(
-            //             shape: BoxShape.circle,
-            //             border: Border.all(color: Color(0xFFE0E0E0), width: 5),
-            //             color: Color(0xFF81C784),
-            //           ),
-            //           child: Column(
-            //             mainAxisAlignment: MainAxisAlignment.center,
-            //             children: <Widget>[new Icon(Icons.add_shopping_cart)],
-            //           ),
-            //         ),
-            //         new Positioned(
-            //             child: new Stack(
-            //           children: <Widget>[
-            //             new Icon(Icons.brightness_1,
-            //                 size: 20.0, color: Colors.red[700]),
-            //             new Positioned(
-            //                 top: 3.0,
-            //                 right: 7,
-            //                 child: new Center(
-            //                   child: new Text(
-            //                     "5",
-            //                     style: new TextStyle(
-            //                         color: Colors.white,
-            //                         fontSize: 12.0,
-            //                         fontWeight: FontWeight.w500),
-            //                   ),
-            //                 )),
-            //           ],
-            //         )),
-            //       ],
-            //     ),
-            //   ],
-            // ),
-            // SizedBox(
-            //   height: 10,
-            // ),
             Expanded(
               child: PageView(
                 controller: PageController(viewportFraction: 1),
@@ -301,6 +255,7 @@ class _buildInnerBottomWidget extends StatefulWidget {
 }
 
 class __buildInnerBottomWidgetState extends State<_buildInnerBottomWidget> {
+  bool _isAdding = false;
   @override
   Widget build(BuildContext context) {
     // print(widget.filteredphoneItem[widget.index].inCart);
@@ -315,65 +270,85 @@ class __buildInnerBottomWidgetState extends State<_buildInnerBottomWidget> {
                 padding: EdgeInsets.only(bottom: 20),
                 child: Row(
                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        FlatButton(
-                          onPressed: () {
-                            SimpleFoldingCellState foldingCellState =
-                                context.ancestorStateOfType(
-                                    TypeMatcher<SimpleFoldingCellState>());
-                            foldingCellState?.toggleFold();
-                          },
-                          child: Text(
-                            "Close",
-                          ),
-                          textColor: Colors.white,
-                          color: Colors.indigoAccent,
-                          splashColor: Colors.white.withOpacity(0.5),
-                        ),
-                        ((widget.filteredphoneItem[widget.index].inCart) ==
-                                false)
-                            ? FlatButton(
+                    _isAdding
+                        ? Center(
+                            child: CircularProgressIndicator(
+                              backgroundColor: Colors.red,
+                            ),
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              FlatButton(
                                 onPressed: () {
-                                  final selectedPhone = {
-                                    "IMEI": widget
-                                        .filteredphoneItem[widget.index].imei
-                                  };
-                                  AddToCartService.addToCart(selectedPhone).then((success){
-                                    if(success){
-                                      print("added");
-                                    }
-                                    else{
-                                      print("error");
-                                    }
-                                  });
+                                  SimpleFoldingCellState foldingCellState =
+                                      context.ancestorStateOfType(TypeMatcher<
+                                          SimpleFoldingCellState>());
+                                  foldingCellState?.toggleFold();
                                 },
                                 child: Text(
-                                  "Add",
-                                ),
-                                textColor: Colors.white,
-                                color: Colors.indigoAccent,
-                                splashColor: Colors.white.withOpacity(0.5),
-                              )
-                            : FlatButton(
-                                onPressed: () {
-                                  // final selectedPhone = {
-                                  //   "imei": widget
-                                  //       .filteredphoneItem[widget.index].imei,
-                                  //   "brand": widget
-                                  //       .filteredphoneItem[widget.index].brand
-                                  // };
-                                },
-                                child: Text(
-                                  "Remove",
+                                  "Close",
                                 ),
                                 textColor: Colors.white,
                                 color: Colors.indigoAccent,
                                 splashColor: Colors.white.withOpacity(0.5),
                               ),
-                      ],
-                    ),
+                              ((widget.filteredphoneItem[widget.index]
+                                          .inCart) ==
+                                      false)
+                                  ? FlatButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          _isAdding=true;
+                                        });
+                                        final selectedPhone = {
+                                          "IMEI": widget
+                                              .filteredphoneItem[widget.index]
+                                              .imei
+                                        };
+                                        AddToCartService.addToCart(
+                                                selectedPhone)
+                                            .then((success) {
+                                          if (success) {
+                                            setState(() {
+                                               _isAdding=false;
+                                            });
+                                            print("added");
+                                          } else {
+                                            setState(() {
+                                               _isAdding=false;
+                                            });
+                                            print("error");
+                                          }
+                                        });
+                                      },
+                                      child: Text(
+                                        "Add",
+                                      ),
+                                      textColor: Colors.white,
+                                      color: Colors.indigoAccent,
+                                      splashColor:
+                                          Colors.white.withOpacity(0.5),
+                                    )
+                                  : FlatButton(
+                                      onPressed: () {
+                                        // final selectedPhone = {
+                                        //   "imei": widget
+                                        //       .filteredphoneItem[widget.index].imei,
+                                        //   "brand": widget
+                                        //       .filteredphoneItem[widget.index].brand
+                                        // };
+                                      },
+                                      child: Text(
+                                        "Remove",
+                                      ),
+                                      textColor: Colors.white,
+                                      color: Colors.indigoAccent,
+                                      splashColor:
+                                          Colors.white.withOpacity(0.5),
+                                    ),
+                            ],
+                          ),
                   ],
                 ),
               ),

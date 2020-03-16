@@ -5,6 +5,7 @@ import 'package:salex/ui/MainScreens/Phones/phoneListPage.dart';
 import 'package:salex/ui/MainScreens/Shops/shopListPage.dart';
 import 'package:salex/ui/MainScreens/Sales/saleListPage.dart';
 import 'package:salex/ui/MainScreens/Returns/returnsListPage.dart';
+import 'package:salex/ui/MainScreens/Checkout/CheckoutPage.dart';
 import 'package:salex/ui/Troublelogin/forgotPassword.dart';
 
 getRoutes() {
@@ -16,5 +17,6 @@ getRoutes() {
     "/Shops": (BuildContext context) => new ShopListPage(),
     "/Sales": (BuildContext context) => new SaleListPage(),
     "/Returns": (BuildContext context) => new ReturnsListPage(),
+    "/Checkout": (BuildContext context) => new CheckoutPage(),
   };
 }
