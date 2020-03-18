@@ -4,7 +4,6 @@ import 'package:folding_cell/folding_cell.dart';
 import 'package:salex/ui/MainScreens/Phones/phoneListPage.dart';
 import 'package:salex/Controllers/ApiServices/addToCartService.dart';
 import 'package:salex/ui/MainScreens/Common/logOut.dart';
-import 'package:slider_button/slider_button.dart';
 
 class phoneList extends StatefulWidget {
   final context;
@@ -23,7 +22,8 @@ class _phoneListState extends State<phoneList> {
       floatingActionButton: InkWell(
         onTap: () {
           print("checkout");
-          Navigator.of(context).pushNamed("/Checkout");
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              "/Checkout", (Route<dynamic> route) => false);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -299,7 +299,7 @@ class __buildInnerBottomWidgetState extends State<_buildInnerBottomWidget> {
                                   ? FlatButton(
                                       onPressed: () {
                                         setState(() {
-                                          _isAdding=true;
+                                          _isAdding = true;
                                         });
                                         final selectedPhone = {
                                           "IMEI": widget
@@ -311,12 +311,12 @@ class __buildInnerBottomWidgetState extends State<_buildInnerBottomWidget> {
                                             .then((success) {
                                           if (success) {
                                             setState(() {
-                                               _isAdding=false;
+                                              _isAdding = false;
                                             });
                                             print("added");
                                           } else {
                                             setState(() {
-                                               _isAdding=false;
+                                              _isAdding = false;
                                             });
                                             print("error");
                                           }
