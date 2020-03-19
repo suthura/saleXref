@@ -81,7 +81,9 @@ class _itemListState extends State<itemList> {
 
                 SaveMySaleService.saveMySale(salesList).then((success) {
                   if (success) {
-                    print("Sale Success");
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/Sales', (Route<dynamic> route) => false);
+                    // print("Sale Success");
                   } else {
                     print("sale failed");
                   }
@@ -91,8 +93,7 @@ class _itemListState extends State<itemList> {
                 // print(_cartIndexs);
 
                 // print(widget.filteredphoneItem.length);
-              }
-              else{
+              } else {
                 print("no items in cart");
               }
             },
