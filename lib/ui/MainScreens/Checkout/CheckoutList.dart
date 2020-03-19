@@ -6,6 +6,8 @@ import 'package:folding_cell/folding_cell.dart';
 import 'package:salex/Models/phoneModel.dart';
 import 'package:salex/ui/MainScreens/Phones/phoneListPage.dart';
 import 'package:salex/Controllers/ApiServices/RemoveFromCartService.dart';
+import 'package:salex/Controllers/ApiServices/SaveMySaleService.dart';
+import 'package:salex/Controllers/ApiServices/ChangeAvailabilityService.dart';
 import 'package:salex/ui/MainScreens/Common/logOut.dart';
 import 'package:slider_button/slider_button.dart';
 
@@ -15,8 +17,9 @@ double total = 0.0;
 class itemList extends StatefulWidget {
   final context;
   final filteredphoneItem;
-
-  itemList(this.context, this.filteredphoneItem, {Key key}) : super(key: key);
+  final shopID;
+  itemList(this.context, this.filteredphoneItem, this.shopID, {Key key})
+      : super(key: key);
 
   @override
   _itemListState createState() => _itemListState();
@@ -41,25 +44,57 @@ class _itemListState extends State<itemList> {
           SliderButton(
             vibrationFlag: false,
             action: () {
-              List _cartIndexs = [];
+              if (total > 0.0) {
+                List _cartIndexs = [];
 
-              ///Do something here OnSlide
-              for (var i = 0; i < widget.filteredphoneItem.length; i++) {
-                final item = {
-                  "brand": widget.filteredphoneItem[i].brand,
-                  "model": widget.filteredphoneItem[i].pmodel,
-                  "capacity": widget.filteredphoneItem[i].capacity,
-                  "IMEI": widget.filteredphoneItem[i].imei,
-                  "Price": widget.filteredphoneItem[i].price,
+                ///Do something here OnSlide
+                for (var i = 0; i < widget.filteredphoneItem.length; i++) {
+                  final saleItem = {"IMEI": widget.filteredphoneItem[i].imei};
+                  ChangeAvailabilityService.changeAvailability(saleItem)
+                      .then((success) {
+                    if (success) {
+                      print(widget.filteredphoneItem[i].imei + ' sold');
+                    } else {
+                      print(widget.filteredphoneItem[i].imei + ' error');
+                    }
+                  });
+
+                  print(saleItem);
+
+                  final item = {
+                    "brand": widget.filteredphoneItem[i].brand,
+                    "model": widget.filteredphoneItem[i].pmodel,
+                    "capacity": widget.filteredphoneItem[i].capacity,
+                    "IMEI": widget.filteredphoneItem[i].imei,
+                    "Price": widget.filteredphoneItem[i].price,
+                  };
+                  _cartIndexs.add(item);
+                }
+
+                final salesList = {
+                  "shopid": widget.shopID,
+                  "token":
+                      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTRlMzNlNTEyZTgyYjAwMTdkYTZjMDQiLCJpYXQiOjE1ODI4MDgwODJ9.wWJAxrBnXQC_W5DmOVQKZnZD6gA6ejUkXgbLHhPjbmQ",
+                  "saledata": _cartIndexs,
+                  "total": total
                 };
-                _cartIndexs.add(item);
+
+                SaveMySaleService.saveMySale(salesList).then((success) {
+                  if (success) {
+                    print("Sale Success");
+                  } else {
+                    print("sale failed");
+                  }
+                });
+
+                // print(widget.shopID);
+                // print(_cartIndexs);
+
+                // print(widget.filteredphoneItem.length);
               }
-
-              
-
-              print(_cartIndexs);
-
-              // print(widget.filteredphoneItem.length);
+              else{
+                print("no items in cart");
+              }
             },
 
             ///Put label over here

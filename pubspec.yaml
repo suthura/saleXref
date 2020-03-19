@@ -33,6 +33,7 @@ dependencies:
   fab_circular_menu: ^0.1.4
   flip_card: ^0.4.4
   slider_button: ^0.5.0
+  shared_preferences: ^0.5.6+3
 
 
 dev_dependencies:

@@ -5,6 +5,7 @@ class ShopItem {
   String city;
   String phone;
   String refID;
+  String shopID;
 
   ShopItem(
       {this.name,
@@ -12,7 +13,8 @@ class ShopItem {
       this.addl2,
       this.city,
       this.phone,
-      this.refID});
+      this.refID,
+      this.shopID});
 
   factory ShopItem.fromJson(Map<String, dynamic> json) {
     return ShopItem(
@@ -22,6 +24,7 @@ class ShopItem {
       city: json["City"] as String,
       phone: json["Phone"] as String,
       refID: json["refID"] as String,
+      shopID: json["_id"] as String,
     );
   }
 }

@@ -13,10 +13,10 @@ getRoutes() {
     "/forgotpw": (BuildContext context) => new ForgotPassword(),
     "/appRoute": (BuildContext context) => new LoginPage(),
     "/Home": (BuildContext context) => new HomePage(),
-    "/Phones": (BuildContext context) => new PhoneListPage(),
+    // "/Phones": (BuildContext context) => new PhoneListPage(),
     "/Shops": (BuildContext context) => new ShopListPage(),
     "/Sales": (BuildContext context) => new SaleListPage(),
     "/Returns": (BuildContext context) => new ReturnsListPage(),
-    "/Checkout": (BuildContext context) => new CheckoutPage(),
+    // "/Checkout": (BuildContext context) => new CheckoutPage(),
   };
 }

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:folding_cell/folding_cell.dart';
-import 'package:salex/ui/MainScreens/Phones/phoneListPage.dart';
+import 'package:salex/ui/MainScreens/Checkout/CheckoutPage.dart';
 import 'package:salex/Controllers/ApiServices/addToCartService.dart';
 import 'package:salex/ui/MainScreens/Common/logOut.dart';
 
 class phoneList extends StatefulWidget {
   final context;
   final filteredphoneItem;
+  final shopID;
 
-  phoneList(this.context, this.filteredphoneItem, {Key key}) : super(key: key);
+  phoneList(this.context, this.filteredphoneItem, this.shopID, {Key key})
+      : super(key: key);
 
   @override
   _phoneListState createState() => _phoneListState();
@@ -22,8 +24,13 @@ class _phoneListState extends State<phoneList> {
       floatingActionButton: InkWell(
         onTap: () {
           print("checkout");
-          Navigator.of(context).pushNamedAndRemoveUntil(
-              "/Checkout", (Route<dynamic> route) => false);
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                  builder: (context) => CheckoutPage(widget.shopID)),
+              (Route<dynamic> route) => false);
+
+          // Navigator.of(context).pushNamedAndRemoveUntil(
+          //     "/Checkout", (Route<dynamic> route) => false);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

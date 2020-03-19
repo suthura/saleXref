@@ -4,6 +4,7 @@ import 'package:folding_cell/folding_cell.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:salex/ui/MainScreens/Common/logOut.dart';
 import 'package:flip_card/flip_card.dart';
+import 'package:salex/ui/MainScreens/Phones/phoneListPage.dart';
 
 Widget shopList(context, filteredshopItem) {
   return Container(
@@ -38,7 +39,7 @@ Widget shopList(context, filteredshopItem) {
             logOut(),
           ],
         ),
-        
+
         SizedBox(
           height: 10,
         ),
@@ -228,7 +229,11 @@ Widget _buildBack(itmIndex, filteredshopItem, index, context) {
                         icon: Icon(FontAwesomeIcons.cartPlus),
                         onPressed: () {
                           // Navigator.of(context).pop();
-                          Navigator.of(context).pushNamed('/Phones');
+                          print(filteredshopItem[itmIndex].shopID);
+                          // Navigator.of(context).pushNamed('/Phones');
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => PhoneListPage(
+                                  filteredshopItem[itmIndex].shopID)));
                         },
                         tooltip: "Sell Here",
                         iconSize: 40.0,
