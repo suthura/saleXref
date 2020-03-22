@@ -18,7 +18,9 @@ class itemList extends StatefulWidget {
   final context;
   final filteredphoneItem;
   final shopID;
-  itemList(this.context, this.filteredphoneItem, this.shopID, {Key key})
+  final shopName;
+  itemList(this.context, this.filteredphoneItem, this.shopID, this.shopName,
+      {Key key})
       : super(key: key);
 
   @override
@@ -70,13 +72,16 @@ class _itemListState extends State<itemList> {
                   };
                   _cartIndexs.add(item);
                 }
+                DateTime now = DateTime.now();
 
                 final salesList = {
                   "shopid": widget.shopID,
+                  "shopname": widget.shopName,
                   "token":
                       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTRlMzNlNTEyZTgyYjAwMTdkYTZjMDQiLCJpYXQiOjE1ODI4MDgwODJ9.wWJAxrBnXQC_W5DmOVQKZnZD6gA6ejUkXgbLHhPjbmQ",
                   "saledata": _cartIndexs,
-                  "total": total
+                  "total": total,
+                  "saletime": now.toString()
                 };
 
                 SaveMySaleService.saveMySale(salesList).then((success) {

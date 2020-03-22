@@ -33,6 +33,33 @@ class GetMyShopService {
     }
   }
 
+  static Future<List<dynamic>> getSingle(shopid) async {
+    try {
+      Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
+
+      final body = {"shopid": shopid};
+
+      final response = await http.post('${URLS.BASE_URL}/shop/getsingleshop',
+          body: jsonEncode(body), headers: requestHeaders);
+      // if (response.statusCode == 200) {
+      //   return json.decode(response.body);
+      // } else {
+      //   return null;
+      // }
+
+      // final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        List<ShopItem> list = parseInterests(response.body);
+        return list;
+      } else {
+        throw Exception("Error");
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
   static List<ShopItem> parseInterests(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
     return parsed.map<ShopItem>((json) => ShopItem.fromJson(json)).toList();

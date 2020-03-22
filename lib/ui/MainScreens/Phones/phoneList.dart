@@ -9,8 +9,9 @@ class phoneList extends StatefulWidget {
   final context;
   final filteredphoneItem;
   final shopID;
+  final shopName;
 
-  phoneList(this.context, this.filteredphoneItem, this.shopID, {Key key})
+  phoneList(this.context, this.filteredphoneItem, this.shopID, this.shopName, {Key key})
       : super(key: key);
 
   @override
@@ -24,10 +25,10 @@ class _phoneListState extends State<phoneList> {
       floatingActionButton: InkWell(
         onTap: () {
           print("checkout");
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(
-                  builder: (context) => CheckoutPage(widget.shopID)),
-              (Route<dynamic> route) => false);
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => CheckoutPage(widget.shopID,widget.shopName)));
+          // ,
+          // (Route<dynamic> route) => false);
 
           // Navigator.of(context).pushNamedAndRemoveUntil(
           //     "/Checkout", (Route<dynamic> route) => false);

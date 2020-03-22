@@ -9,7 +9,8 @@ import 'dart:async';
 
 class CheckoutPage extends StatefulWidget {
   final shopID;
-  CheckoutPage(this.shopID, {Key key}) : super(key: key);
+  final shopName;
+  CheckoutPage(this.shopID, this.shopName, {Key key}) : super(key: key);
 
   @override
   _CheckoutPageState createState() => _CheckoutPageState();
@@ -61,7 +62,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
               Icons.menu,
               size: 40,
             ),
-            child: itemList(context, filteredphoneItem,widget.shopID),
+            child: itemList(context, filteredphoneItem,widget.shopID ,widget.shopName),
             options: getOptions(context)));
   }
 }

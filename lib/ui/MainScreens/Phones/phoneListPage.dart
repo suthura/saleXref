@@ -9,7 +9,8 @@ import 'dart:async';
 
 class PhoneListPage extends StatefulWidget {
   final shopID;
-  PhoneListPage(this.shopID, {Key key}) : super(key: key);
+  final shopName;
+  PhoneListPage(this.shopID, this.shopName, {Key key}) : super(key: key);
 
   @override
   _PhoneListPageState createState() => _PhoneListPageState();
@@ -61,7 +62,7 @@ class _PhoneListPageState extends State<PhoneListPage> {
               Icons.menu,
               size: 40,
             ),
-            child: phoneList(context, filteredphoneItem,widget.shopID),
+            child: phoneList(context, filteredphoneItem, widget.shopID,widget.shopName),
             options: getOptions(context)));
   }
 }

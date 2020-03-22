@@ -233,7 +233,9 @@ Widget _buildBack(itmIndex, filteredshopItem, index, context) {
                           // Navigator.of(context).pushNamed('/Phones');
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => PhoneListPage(
-                                  filteredshopItem[itmIndex].shopID)));
+                                  filteredshopItem[itmIndex].shopID,
+                                  filteredshopItem[itmIndex].name
+                                  )));
                         },
                         tooltip: "Sell Here",
                         iconSize: 40.0,
