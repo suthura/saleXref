@@ -2,20 +2,23 @@ import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:salex/Controllers/ApiServices/GetMyPhoneService.dart';
+import 'package:salex/Models/singleSaleModel.dart';
 import 'package:salex/ui/MainScreens/Dashboard/dashboard.dart';
 import 'package:salex/ui/MainScreens/Common/fabOptions.dart';
-import 'package:salex/Controllers/ApiServices/GetMySalesService.dart';
+import 'package:salex/Controllers/ApiServices/GetSingleSale.dart';
 import 'package:salex/Models/saleModel.dart';
+import 'package:salex/ui/MainScreens/Sales/SingleItem.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+class SingleSalePage extends StatefulWidget {
+  final saleID;
+  SingleSalePage(this.saleID, {Key key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _SingleSalePageState createState() => _SingleSalePageState();
 }
 
-List<SaleItem> saleItem = List();
-List<SaleItem> filteredSaleItem = List();
+List<SingleSaleItem> saleItem = List();
+List<SingleSaleItem> filteredSaleItem = List();
 
 int phoneCount;
 
@@ -23,7 +26,7 @@ final backgroundColor = Colors.transparent;
 double screenWidth, screenHeight;
 final Duration duration = const Duration(milliseconds: 200);
 
-class _HomePageState extends State<HomePage> {
+class _SingleSalePageState extends State<SingleSalePage> {
   @override
   void initState() {
     super.initState();
@@ -31,19 +34,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   callAPI() {
-    GetMySalesService.getSales().then((saleFromServer) {
+    final body = {"saleid": widget.saleID};
+
+    GetSingleSaleService.getSale(body).then((saleFromServer) {
       setState(() {
         saleItem = saleFromServer;
         filteredSaleItem = saleItem;
-        print("Sale list updated");
-      });
-    });
-
-    GetMyPhoneService.getPhones().then((phoneFromServer) {
-      setState(() {
-        phoneCount = phoneFromServer.length;
-        
-        print("phone count updated");
+        print(filteredSaleItem.length);
       });
     });
   }
@@ -61,7 +58,7 @@ class _HomePageState extends State<HomePage> {
               Icons.menu,
               size: 40,
             ),
-            child: dashboard(context, filteredSaleItem,phoneCount),
+            child:SingleItem(filteredSaleItem),
             options: getOptions(context)));
   }
 }

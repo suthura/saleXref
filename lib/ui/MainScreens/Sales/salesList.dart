@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:salex/Models/shopModel.dart';
 import 'package:salex/ui/MainScreens/Common/logOut.dart';
 import 'package:intl/intl.dart';
+import 'package:salex/ui/MainScreens/Sales/SingleSalePage.dart';
 
 class saleList extends StatefulWidget {
   final filteredSaleItem;
@@ -60,36 +61,44 @@ class _saleListState extends State<saleList> {
                 itemBuilder: (context, index) {
                   // print(widget.filteredSaleItem.length);
 
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: Container(
-                      decoration: new BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(40)),
-                        gradient: new LinearGradient(
-                            colors: [Color(0xFFF6BDC0), Color(0xFFEA4C46)],
-                            begin: const FractionalOffset(0.0, 0.0),
-                            end: const FractionalOffset(1.0, 1.0),
-                            stops: [0.0, 1.0],
-                            tileMode: TileMode.clamp),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 8.0, left: 8.0),
-                        child: ListTile(
-                          title: Text(widget.filteredSaleItem[index].shopname,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500)),
-                          subtitle: Text(formatter
-                              .format(DateTime.parse(
-                                  widget.filteredSaleItem[index].saletime))
-                              .toString()),
-                          trailing: Text(
-                              "Rs : " + widget.filteredSaleItem[index].total,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500)),
+                  return InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              SingleSalePage(widget.filteredSaleItem[index].saleID)));
+                      print(widget.filteredSaleItem[index].saleID);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: Container(
+                        decoration: new BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(40)),
+                          gradient: new LinearGradient(
+                              colors: [Color(0xFFF6BDC0), Color(0xFFEA4C46)],
+                              begin: const FractionalOffset(0.0, 0.0),
+                              end: const FractionalOffset(1.0, 1.0),
+                              stops: [0.0, 1.0],
+                              tileMode: TileMode.clamp),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 8.0, left: 8.0),
+                          child: ListTile(
+                            title: Text(widget.filteredSaleItem[index].shopname,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500)),
+                            subtitle: Text(formatter
+                                .format(DateTime.parse(
+                                    widget.filteredSaleItem[index].saletime))
+                                .toString()),
+                            trailing: Text(
+                                "Rs : " + widget.filteredSaleItem[index].total,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500)),
+                          ),
                         ),
                       ),
                     ),

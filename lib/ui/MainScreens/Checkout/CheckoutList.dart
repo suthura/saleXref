@@ -67,8 +67,8 @@ class _itemListState extends State<itemList> {
                     "brand": widget.filteredphoneItem[i].brand,
                     "model": widget.filteredphoneItem[i].pmodel,
                     "capacity": widget.filteredphoneItem[i].capacity,
-                    "IMEI": widget.filteredphoneItem[i].imei,
-                    "Price": widget.filteredphoneItem[i].price,
+                    "imei": widget.filteredphoneItem[i].imei,
+                    "price": widget.filteredphoneItem[i].price,
                   };
                   _cartIndexs.add(item);
                 }
