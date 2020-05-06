@@ -2,15 +2,16 @@ import 'dart:convert';
 import 'package:salex/Controllers/ApiServices/variables.dart';
 import 'package:salex/Models/phoneModel.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class GetMyCartService {
   static Future<List<dynamic>> getCart() async {
     try {
       Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
-
+      SharedPreferences authDetail = await SharedPreferences.getInstance();
+    // authDetail.getString("usertoken")
       final body = {
-        "token":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTRlMzNlNTEyZTgyYjAwMTdkYTZjMDQiLCJpYXQiOjE1ODI4MDgwODJ9.wWJAxrBnXQC_W5DmOVQKZnZD6gA6ejUkXgbLHhPjbmQ"
+        "token":authDetail.getString("usertoken")
       };
 
       final response = await http.post('${URLS.BASE_URL}/phone/getcart',

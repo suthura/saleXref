@@ -4,7 +4,7 @@ import 'package:salex/Controllers/ApiServices/variables.dart';
 import 'package:http/http.dart' as http;
 
 class CheckPhoneService {
-  static Future<bool> CheckPhone(body) async {
+  static Future<String> CheckPhone(body) async {
 
      Map<String, String> requestHeaders = {
        'Content-Type': 'application/json'
@@ -20,10 +20,10 @@ class CheckPhoneService {
 
     Map<String, dynamic> res_data = jsonDecode(data);
     print(res_data.toString());
-    if (res_data['loginstatus'] == 'olduser') {
-      return true;
+    if (res_data['token'] !=null) {
+      return res_data['token'];
     } else {
-      return false;
+      return "invalid";
     }
     // return false;
   }

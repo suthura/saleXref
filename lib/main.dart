@@ -19,8 +19,8 @@ class _MyAppState extends State<MyApp> {
         theme: new ThemeData(
           primarySwatch: Colors.blue,
         ),
-        // home: new LoginPage(),
-        home: new HomePage(),
+        home: new LoginPage(),
+        // home: new HomePage(),
         routes: getRoutes());
   }
 }

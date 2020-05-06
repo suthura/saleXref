@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:folding_cell/folding_cell.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:latlong/latlong.dart';
 import 'package:salex/ui/MainScreens/Common/logOut.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:salex/ui/MainScreens/Phones/phoneListPage.dart';
 
-Widget shopList(context, filteredshopItem) {
+Widget shopList(context, filteredshopItem, currentPosition) {
   return Container(
     decoration: new BoxDecoration(
       gradient: new LinearGradient(
@@ -58,9 +60,10 @@ Widget shopList(context, filteredshopItem) {
                     key: index,
                     direction: FlipDirection.VERTICAL,
                     flipOnTouch: false,
-                    front: _buildFront(itmIndex, filteredshopItem, index),
-                    back:
-                        _buildBack(itmIndex, filteredshopItem, index, context),
+                    front: _buildFront(
+                        itmIndex, filteredshopItem, index, currentPosition),
+                    back: _buildBack(itmIndex, filteredshopItem, index, context,
+                        currentPosition),
                   );
                 },
                 itemCount: filteredshopItem.length,
@@ -83,7 +86,23 @@ final regularTextStyle = baseTextStyle.copyWith(
 
 final subHeaderTextStyle = regularTextStyle.copyWith(fontSize: 12.0);
 
-Widget _buildFront(itmIndex, filteredshopItem, index) {
+getDistance(curPos, shopLat, shopLong) {
+  final Distance distance = new Distance();
+  if (curPos != null) {
+    // km = 423
+    final double km = distance.as(
+        LengthUnit.Kilometer,
+        new LatLng(curPos.latitude, curPos.longitude),
+        new LatLng(shopLat, shopLong));
+
+    print(km.toString());
+
+    return (km.toString());
+  } else
+    return "";
+}
+
+Widget _buildFront(itmIndex, filteredshopItem, index, currentPosition) {
   return new Container(
       height: 170.0,
       margin: const EdgeInsets.symmetric(
@@ -142,7 +161,11 @@ Widget _buildFront(itmIndex, filteredshopItem, index) {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  new Text('20 Km'),
+                  new Text(getDistance(
+                          currentPosition,
+                          filteredshopItem[itmIndex].latitude,
+                          filteredshopItem[itmIndex].longitute) +
+                      "KM"),
                   Text('Ahead'),
                 ],
               ),
@@ -189,7 +212,7 @@ Widget _buildFront(itmIndex, filteredshopItem, index) {
       ));
 }
 
-Widget _buildBack(itmIndex, filteredshopItem, index, context) {
+Widget _buildBack(itmIndex, filteredshopItem, index, context, currentPosition) {
   return new Container(
       height: 170.0,
       margin: const EdgeInsets.symmetric(
@@ -234,8 +257,7 @@ Widget _buildBack(itmIndex, filteredshopItem, index, context) {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => PhoneListPage(
                                   filteredshopItem[itmIndex].shopID,
-                                  filteredshopItem[itmIndex].name
-                                  )));
+                                  filteredshopItem[itmIndex].name)));
                         },
                         tooltip: "Sell Here",
                         iconSize: 40.0,
@@ -268,7 +290,11 @@ Widget _buildBack(itmIndex, filteredshopItem, index, context) {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  new Text('18 Km'),
+                  new Text(getDistance(
+                          currentPosition,
+                          filteredshopItem[itmIndex].latitude,
+                          filteredshopItem[itmIndex].longitute) +
+                      "KM"),
                   Text('Ahead'),
                 ],
               ),

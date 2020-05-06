@@ -7,6 +7,8 @@ import 'package:salex/Controllers/ApiServices/GetMyPhoneService.dart';
 import 'package:salex/Models/phoneModel.dart';
 import 'dart:async';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class PhoneListPage extends StatefulWidget {
   final shopID;
   final shopName;
@@ -39,8 +41,12 @@ class _PhoneListPageState extends State<PhoneListPage> {
     super.dispose();
   }
 
-  callAPI() {
-    GetMyPhoneService.getPhones().then((phoneFromServer) {
+  callAPI() async {
+    SharedPreferences authDetail = await SharedPreferences.getInstance();
+    // authDetail.getString("usertoken")
+
+    GetMyPhoneService.getPhones(authDetail.getString("usertoken"))
+        .then((phoneFromServer) {
       setState(() {
         phoneItem = phoneFromServer;
         filteredphoneItem = phoneItem;
@@ -62,7 +68,8 @@ class _PhoneListPageState extends State<PhoneListPage> {
               Icons.menu,
               size: 40,
             ),
-            child: phoneList(context, filteredphoneItem, widget.shopID,widget.shopName),
+            child: phoneList(
+                context, filteredphoneItem, widget.shopID, widget.shopName),
             options: getOptions(context)));
   }
 }

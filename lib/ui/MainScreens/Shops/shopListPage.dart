@@ -1,6 +1,8 @@
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:latlong/latlong.dart';
 import 'package:salex/Controllers/ApiServices/GetMyShopService.dart';
 import 'package:salex/ui/MainScreens/Shops/shopList.dart';
 import 'package:salex/ui/MainScreens/Common/fabOptions.dart';
@@ -20,10 +22,18 @@ final backgroundColor = Colors.transparent;
 double screenWidth, screenHeight;
 
 class _ShopListPageState extends State<ShopListPage> {
+  Position _currentPosition;
+
   @override
   void initState() {
     super.initState();
     callAPI();
+    _getCurrentLocation();
+
+    // if (_currentPosition != null) {
+    //   print(_currentPosition.latitude);
+    //   print(_currentPosition.longitude);
+    // }
   }
 
   callAPI() {
@@ -34,6 +44,14 @@ class _ShopListPageState extends State<ShopListPage> {
         print("shop list updated");
       });
     });
+  }
+
+  _getCurrentLocation() async {
+    _currentPosition = await Geolocator()
+        .getLastKnownPosition(desiredAccuracy: LocationAccuracy.high);
+    print(_currentPosition.latitude.toString());
+    print(_currentPosition.longitude.toString());
+
   }
 
   @override
@@ -50,7 +68,7 @@ class _ShopListPageState extends State<ShopListPage> {
               Icons.menu,
               size: 40,
             ),
-            child: shopList(context,filteredshopItem),
+            child: shopList(context, filteredshopItem,_currentPosition),
             options: getOptions(context)));
   }
 }

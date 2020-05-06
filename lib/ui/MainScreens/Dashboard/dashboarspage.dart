@@ -6,6 +6,7 @@ import 'package:salex/ui/MainScreens/Dashboard/dashboard.dart';
 import 'package:salex/ui/MainScreens/Common/fabOptions.dart';
 import 'package:salex/Controllers/ApiServices/GetMySalesService.dart';
 import 'package:salex/Models/saleModel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -30,8 +31,12 @@ class _HomePageState extends State<HomePage> {
     callAPI();
   }
 
-  callAPI() {
-    GetMySalesService.getSales().then((saleFromServer) {
+  callAPI() async {
+    SharedPreferences authDetail = await SharedPreferences.getInstance();
+    print(authDetail.getString("usertoken"));
+
+    GetMySalesService.getSales(authDetail.getString("usertoken"))
+        .then((saleFromServer) {
       setState(() {
         saleItem = saleFromServer;
         filteredSaleItem = saleItem;
@@ -39,10 +44,11 @@ class _HomePageState extends State<HomePage> {
       });
     });
 
-    GetMyPhoneService.getPhones().then((phoneFromServer) {
+    GetMyPhoneService.getPhones(authDetail.getString("usertoken"))
+        .then((phoneFromServer) {
       setState(() {
         phoneCount = phoneFromServer.length;
-        
+
         print("phone count updated");
       });
     });
@@ -61,7 +67,7 @@ class _HomePageState extends State<HomePage> {
               Icons.menu,
               size: 40,
             ),
-            child: dashboard(context, filteredSaleItem,phoneCount),
+            child: dashboard(context, filteredSaleItem, phoneCount),
             options: getOptions(context)));
   }
 }

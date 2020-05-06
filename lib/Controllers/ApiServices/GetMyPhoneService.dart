@@ -4,13 +4,12 @@ import 'package:salex/Models/phoneModel.dart';
 import 'package:http/http.dart' as http;
 
 class GetMyPhoneService {
-  static Future<List<dynamic>> getPhones() async {
+  static Future<List<dynamic>> getPhones(token) async {
     try {
       Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
 
       final body = {
-        "token":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTRlMzNlNTEyZTgyYjAwMTdkYTZjMDQiLCJpYXQiOjE1ODI4MDgwODJ9.wWJAxrBnXQC_W5DmOVQKZnZD6gA6ejUkXgbLHhPjbmQ"
+        "token":token
       };
 
       final response = await http.post('${URLS.BASE_URL}/phone/getmine',

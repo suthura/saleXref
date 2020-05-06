@@ -5,6 +5,7 @@ import 'package:salex/Models/saleModel.dart';
 import 'package:salex/ui/MainScreens/Sales/salesList.dart';
 import 'package:salex/ui/MainScreens/Common/fabOptions.dart';
 import 'package:salex/Controllers/ApiServices/GetMySalesService.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SaleListPage extends StatefulWidget {
   SaleListPage({Key key}) : super(key: key);
@@ -26,8 +27,11 @@ class _SaleListPageState extends State<SaleListPage> {
     callAPI();
   }
 
-  callAPI() {
-    GetMySalesService.getSales().then((saleFromServer) {
+  callAPI() async {
+    SharedPreferences authDetail = await SharedPreferences.getInstance();
+
+    GetMySalesService.getSales(authDetail.getString("usertoken"))
+        .then((saleFromServer) {
       setState(() {
         saleItem = saleFromServer;
         filteredSaleItem = saleItem;

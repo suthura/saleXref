@@ -9,6 +9,7 @@ import 'package:salex/Controllers/ApiServices/RemoveFromCartService.dart';
 import 'package:salex/Controllers/ApiServices/SaveMySaleService.dart';
 import 'package:salex/Controllers/ApiServices/ChangeAvailabilityService.dart';
 import 'package:salex/ui/MainScreens/Common/logOut.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:slider_button/slider_button.dart';
 
 double screenWidth, screenHeight;
@@ -45,7 +46,7 @@ class _itemListState extends State<itemList> {
         children: <Widget>[
           SliderButton(
             vibrationFlag: false,
-            action: () {
+            action: () async {
               if (total > 0.0) {
                 List _cartIndexs = [];
 
@@ -73,12 +74,11 @@ class _itemListState extends State<itemList> {
                   _cartIndexs.add(item);
                 }
                 DateTime now = DateTime.now();
-
+                SharedPreferences authDetail = await SharedPreferences.getInstance();
                 final salesList = {
                   "shopid": widget.shopID,
                   "shopname": widget.shopName,
-                  "token":
-                      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTRlMzNlNTEyZTgyYjAwMTdkYTZjMDQiLCJpYXQiOjE1ODI4MDgwODJ9.wWJAxrBnXQC_W5DmOVQKZnZD6gA6ejUkXgbLHhPjbmQ",
+                  "token":authDetail.getString("usertoken"),
                   "saledata": _cartIndexs,
                   "total": total,
                   "saletime": now.toString()

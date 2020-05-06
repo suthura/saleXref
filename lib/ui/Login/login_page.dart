@@ -9,6 +9,7 @@ import 'package:salex/ui/MainScreens/Dashboard/dashboarspage.dart';
 import 'package:salex/utils/bubble_indication_painter.dart';
 import 'package:salex/utils/pin_code_fields.dart';
 import 'package:salex/Controllers/ApiServices/CheckPhoneService.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -26,6 +27,8 @@ class _LoginPageState extends State<LoginPage>
   bool isLoading = true;
   bool isSending = false;
   String _errorTxt = '';
+
+  String receivedToken;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -148,6 +151,7 @@ class _LoginPageState extends State<LoginPage>
     super.dispose();
   }
 
+  
   @override
   void initState() {
     super.initState();
@@ -203,6 +207,11 @@ class _LoginPageState extends State<LoginPage>
   }
 
   navigate() async {
+    // print(receivedToken);
+    SharedPreferences authDetail = await SharedPreferences.getInstance();
+
+    authDetail.setString("usertoken", receivedToken);
+    print("authDetail set");
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -423,16 +432,19 @@ class _LoginPageState extends State<LoginPage>
                                 isSending = true;
                               });
                               final body = {"phone": loginEmailController.text};
-                              CheckPhoneService.CheckPhone(body)
-                                  .then((success) {
-                                if (success) {
-                                  print("verified");
-                                  verifyPhone();
-                                } else {
+                              CheckPhoneService.CheckPhone(body).then((token) {
+                                if (token == 'invalid') {
                                   print("verify failed");
                                   setState(() {
                                     isSending = false;
                                   });
+                                } else if (token != null) {
+                                  print("verified");
+                                  // print(token);
+                                  setState(() {
+                                    receivedToken = token;
+                                  });
+                                  verifyPhone();
                                 }
                               });
                             }
