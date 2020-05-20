@@ -32,7 +32,7 @@ Widget returnsList(context) {
             ),
             Text("My Returns List",
                 style: TextStyle(fontSize: 24, color: Colors.black)),
-            logOut(),
+            logOut(context),
           ],
         ),
         SizedBox(

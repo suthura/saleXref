@@ -30,6 +30,7 @@ class _ReturnsListPageState extends State<ReturnsListPage> {
               size: 40,
             ),
             child: returnsList(context),
-            options: getOptions(context)));
+            options: getOptions(context),
+            ringDiameter: MediaQuery.of(context).size.width*0.8,));
   }
 }

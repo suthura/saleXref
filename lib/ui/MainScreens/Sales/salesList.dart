@@ -47,7 +47,7 @@ class _saleListState extends State<saleList> {
               ),
               Text("My Sales List",
                   style: TextStyle(fontSize: 24, color: Colors.black)),
-              logOut(),
+              logOut(context),
             ],
           ),
           SizedBox(

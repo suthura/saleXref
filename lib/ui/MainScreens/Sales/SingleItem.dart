@@ -45,7 +45,7 @@ class _SingleItemState extends State<SingleItem> {
               ),
               Text("Sale Datails",
                   style: TextStyle(fontSize: 24, color: Colors.black)),
-              logOut(),
+              logOut(context),
             ],
           ),
           SizedBox(

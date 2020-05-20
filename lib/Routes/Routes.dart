@@ -17,6 +17,7 @@ getRoutes() {
     "/Shops": (BuildContext context) => new ShopListPage(),
     "/Sales": (BuildContext context) => new SaleListPage(),
     "/Returns": (BuildContext context) => new ReturnsListPage(),
+    "/Login": (BuildContext context) => new LoginPage(),
     // "/Checkout": (BuildContext context) => new CheckoutPage(),
   };
 }

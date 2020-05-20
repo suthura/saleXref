@@ -68,7 +68,7 @@ class _phoneListState extends State<phoneList> {
                 ),
                 Text("My Phone List",
                     style: TextStyle(fontSize: 24, color: Colors.black)),
-                logOut(),
+                logOut(context),
               ],
             ),
             Expanded(

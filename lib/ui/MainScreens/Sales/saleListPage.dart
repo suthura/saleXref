@@ -54,6 +54,7 @@ class _SaleListPageState extends State<SaleListPage> {
               size: 40,
             ),
             child: saleList(filteredSaleItem),
-            options: getOptions(context)));
+            options: getOptions(context),
+            ringDiameter: MediaQuery.of(context).size.width*0.8,));
   }
 }

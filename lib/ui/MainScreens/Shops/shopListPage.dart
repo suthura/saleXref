@@ -51,7 +51,6 @@ class _ShopListPageState extends State<ShopListPage> {
         .getLastKnownPosition(desiredAccuracy: LocationAccuracy.high);
     print(_currentPosition.latitude.toString());
     print(_currentPosition.longitude.toString());
-
   }
 
   @override
@@ -69,6 +68,7 @@ class _ShopListPageState extends State<ShopListPage> {
               size: 40,
             ),
             child: shopList(context, filteredshopItem,_currentPosition),
-            options: getOptions(context)));
+            options: getOptions(context),
+            ringDiameter: MediaQuery.of(context).size.width*0.8,));
   }
 }

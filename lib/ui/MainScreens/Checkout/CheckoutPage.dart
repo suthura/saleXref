@@ -63,6 +63,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
               size: 40,
             ),
             child: itemList(context, filteredphoneItem,widget.shopID ,widget.shopName),
-            options: getOptions(context)));
+            options: getOptions(context),
+            ringDiameter: MediaQuery.of(context).size.width*0.8,));
   }
 }

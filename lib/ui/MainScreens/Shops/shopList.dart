@@ -4,6 +4,7 @@ import 'package:folding_cell/folding_cell.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong/latlong.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:salex/ui/MainScreens/Common/logOut.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:salex/ui/MainScreens/Phones/phoneListPage.dart';
@@ -38,7 +39,7 @@ Widget shopList(context, filteredshopItem, currentPosition) {
             ),
             Text("My Shops List",
                 style: TextStyle(fontSize: 24, color: Colors.black)),
-            logOut(),
+            logOut(context),
           ],
         ),
 
@@ -213,6 +214,47 @@ Widget _buildFront(itmIndex, filteredshopItem, index, currentPosition) {
 }
 
 Widget _buildBack(itmIndex, filteredshopItem, index, context, currentPosition) {
+  openMapsSheet(context,lat,lang) async {
+    try {
+      final title = "Open Shop";
+      final description = "Shop Location";
+      final coords = Coords(lat, lang);
+      final availableMaps = await MapLauncher.installedMaps;
+
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return SafeArea(
+            child: SingleChildScrollView(
+              child: Container(
+                child: Wrap(
+                  children: <Widget>[
+                    for (var map in availableMaps)
+                      ListTile(
+                        onTap: () => map.showMarker(
+                          coords: coords,
+                          title: title,
+                          description: description,
+                        ),
+                        title: Text(map.mapName),
+                        leading: Image(
+                          image: map.icon,
+                          height: 30.0,
+                          width: 30.0,
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
   return new Container(
       height: 170.0,
       margin: const EdgeInsets.symmetric(
@@ -265,8 +307,20 @@ Widget _buildBack(itmIndex, filteredshopItem, index, context, currentPosition) {
                     IconButton(
                         icon: Icon(Icons.navigation),
                         onPressed: () {
-                          // Navigator.of(context).pop();
-                          // Navigator.of(context).pushNamed('/Shops');
+                          openMapsSheet(
+                              context,
+                              filteredshopItem[itmIndex].latitude,
+                              filteredshopItem[itmIndex].longitute);
+                          // final availableMaps = await MapLauncher.installedMaps;
+                          // print("---------------------");
+                          // print(
+                          //     availableMaps); // [AvailableMap { mapName: Google Maps, mapType: google }, ...]
+
+                          // await availableMaps.first.showMarker(
+                          //   coords: Coords(31.233568, 121.505504),
+                          //   title: "Shanghai Tower",
+                          //   description: "Asia's tallest building",
+                          // );
                         },
                         tooltip: "Navigate Here",
                         iconSize: 40.0,

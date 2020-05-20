@@ -61,7 +61,7 @@ class _dashboardState extends State<dashboard> {
               ),
               Text("My Dashboard",
                   style: TextStyle(fontSize: 24, color: Colors.black)),
-              logOut(),
+              logOut(context),
             ],
           ),
           SizedBox(

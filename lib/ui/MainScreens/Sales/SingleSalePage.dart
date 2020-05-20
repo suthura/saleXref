@@ -59,6 +59,7 @@ class _SingleSalePageState extends State<SingleSalePage> {
               size: 40,
             ),
             child:SingleItem(filteredSaleItem),
-            options: getOptions(context)));
+            options: getOptions(context),
+            ringDiameter: MediaQuery.of(context).size.width*0.8,));
   }
 }

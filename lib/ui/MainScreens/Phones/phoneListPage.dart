@@ -70,6 +70,7 @@ class _PhoneListPageState extends State<PhoneListPage> {
             ),
             child: phoneList(
                 context, filteredphoneItem, widget.shopID, widget.shopName),
-            options: getOptions(context)));
+            options: getOptions(context),
+            ringDiameter: MediaQuery.of(context).size.width*0.8,));
   }
 }

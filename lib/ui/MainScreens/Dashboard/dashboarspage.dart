@@ -68,6 +68,7 @@ class _HomePageState extends State<HomePage> {
               size: 40,
             ),
             child: dashboard(context, filteredSaleItem, phoneCount),
-            options: getOptions(context)));
+           options: getOptions(context),
+            ringDiameter: MediaQuery.of(context).size.width*0.8,));
   }
 }

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:folding_cell/folding_cell.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:salex/Models/phoneModel.dart';
 import 'package:salex/ui/MainScreens/Phones/phoneListPage.dart';
 import 'package:salex/Controllers/ApiServices/RemoveFromCartService.dart';
@@ -74,11 +75,12 @@ class _itemListState extends State<itemList> {
                   _cartIndexs.add(item);
                 }
                 DateTime now = DateTime.now();
-                SharedPreferences authDetail = await SharedPreferences.getInstance();
+                SharedPreferences authDetail =
+                    await SharedPreferences.getInstance();
                 final salesList = {
                   "shopid": widget.shopID,
                   "shopname": widget.shopName,
-                  "token":authDetail.getString("usertoken"),
+                  "token": authDetail.getString("usertoken"),
                   "saledata": _cartIndexs,
                   "total": total,
                   "saletime": now.toString()
@@ -86,11 +88,48 @@ class _itemListState extends State<itemList> {
 
                 SaveMySaleService.saveMySale(salesList).then((success) {
                   if (success) {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        '/Sales', (Route<dynamic> route) => false);
+                    Alert(
+                      context: context,
+                      type: AlertType.success,
+                      title: "Success",
+                      desc: "Sale Successfull.",
+                      buttons: [
+                        DialogButton(
+                          child: Text(
+                            "OK",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                '/Sales', (Route<dynamic> route) => false);
+                          },
+                          width: 120,
+                        )
+                      ],
+                    ).show();
+
                     // print("Sale Success");
                   } else {
                     print("sale failed");
+                    Alert(
+                      context: context,
+                      type: AlertType.success,
+                      title: "Failed",
+                      desc: "Sale Failed Try Again",
+                      buttons: [
+                        DialogButton(
+                          child: Text(
+                            "OK",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                '/Shops', (Route<dynamic> route) => false);
+                          },
+                          width: 120,
+                        )
+                      ],
+                    ).show();
                   }
                 });
 
@@ -153,7 +192,7 @@ class _itemListState extends State<itemList> {
                 ),
                 Text("Cart",
                     style: TextStyle(fontSize: 24, color: Colors.black)),
-                logOut(),
+                logOut(context),
               ],
             ),
             SizedBox(
